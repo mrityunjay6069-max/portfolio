@@ -11,16 +11,16 @@
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --gold: #c9a84c;
-    --gold-light: #e8c97a;
-    --gold-dim: #7a6228;
-    --ink: #0c0b09;
-    --surface: #111009;
-    --surface-2: #181612;
-    --surface-3: #201e18;
-    --text: #e8e2d4;
-    --text-muted: #8a8474;
-    --border: rgba(201,168,76,0.18);
+    --gold: #F2B705;
+    --gold-light: #FFD08A;
+    --gold-dim: #9a7503;
+    --ink: #0B0B0B;
+    --surface: rgba(47, 42, 36, 0.25);
+    --surface-2: rgba(47, 42, 36, 0.2);
+    --surface-3: rgba(47, 42, 36, 0.3);
+    --text: #FFE8C8;
+    --text-muted: rgba(255, 208, 138, 0.65);
+    --border: rgba(242, 183, 5, 0.15);
   }
 
   html { scroll-behavior: smooth; }
@@ -64,8 +64,9 @@
     transition: all 0.4s ease;
   }
   nav.scrolled {
-    background: rgba(12,11,9,0.92);
-    backdrop-filter: blur(12px);
+    background: rgba(15,11,21,0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom-color: var(--border);
   }
   .nav-logo {
@@ -346,7 +347,11 @@
     border: 1px solid var(--border);
     padding: 1.8rem;
     background: var(--surface-2);
-    transition: border-color 0.3s, transform 0.3s;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
     position: relative;
     overflow: hidden;
   }
@@ -450,9 +455,13 @@
     border: 1px solid var(--border);
     padding: 2rem;
     background: var(--surface-2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
+    transition: all 0.3s;
   }
   .project-card:hover { border-color: var(--gold-dim); transform: translateY(-4px); }
   .project-num {
@@ -491,6 +500,10 @@
     border: 1px solid var(--border);
     padding: 2rem;
     background: var(--surface-3);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   }
   .edu-degree {
     font-family: 'Playfair Display', serif;
@@ -622,9 +635,127 @@
     .hero-scroll-hint { left: 1.8rem; }
     footer { padding: 2rem 1.8rem; }
   }
+
+  /* ─── ANIMATED MESH GRADIENT BG ─── */
+  .mesh-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -10;
+    background: #0B0B0B;
+    overflow: hidden;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+    will-change: transform;
+  }
+  /* Golden core blob — large, slow drift */
+  .blob-1 {
+    width: 55vw; height: 55vw;
+    background: radial-gradient(circle, #F2B705 0%, transparent 70%);
+    filter: blur(100px);
+    top: -15%; left: -15%;
+    animation: driftA 24s infinite ease-in-out;
+  }
+  /* Warm amber glow */
+  .blob-2 {
+    width: 50vw; height: 50vw;
+    background: radial-gradient(circle, #FFD08A 0%, transparent 70%);
+    filter: blur(110px);
+    bottom: -20%; right: -10%;
+    animation: driftB 28s infinite ease-in-out;
+    opacity: 0.5;
+  }
+  /* Deep brown undertone */
+  .blob-3 {
+    width: 60vw; height: 60vw;
+    background: radial-gradient(circle, #2F2A24 0%, transparent 65%);
+    filter: blur(80px);
+    top: 30%; left: 40%;
+    animation: driftC 22s infinite ease-in-out;
+    opacity: 0.8;
+  }
+  /* Bright gold accent — smaller, faster */
+  .blob-4 {
+    width: 35vw; height: 35vw;
+    background: radial-gradient(circle, #F2B705 0%, #FFD08A 40%, transparent 70%);
+    filter: blur(90px);
+    bottom: 10%; left: 20%;
+    animation: driftD 18s infinite ease-in-out;
+    opacity: 0.45;
+  }
+  /* Cream highlight — subtle top-right */
+  .blob-5 {
+    width: 40vw; height: 40vw;
+    background: radial-gradient(circle, #FFE8C8 0%, transparent 70%);
+    filter: blur(120px);
+    top: -5%; right: -5%;
+    animation: driftE 26s infinite ease-in-out;
+    opacity: 0.3;
+  }
+  /* Dark anchor blob — keeps depth */
+  .blob-6 {
+    width: 45vw; height: 45vw;
+    background: radial-gradient(circle, #2F2A24 0%, #0B0B0B 60%, transparent 80%);
+    filter: blur(70px);
+    bottom: -10%; left: -10%;
+    animation: driftF 30s infinite ease-in-out;
+    opacity: 0.7;
+  }
+
+  @keyframes driftA {
+    0%   { transform: translate(0, 0) scale(1); }
+    25%  { transform: translate(12vw, 8vh) scale(1.05); }
+    50%  { transform: translate(6vw, 20vh) scale(0.95); }
+    75%  { transform: translate(-4vw, 10vh) scale(1.08); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  @keyframes driftB {
+    0%   { transform: translate(0, 0) scale(1); }
+    25%  { transform: translate(-8vw, -12vh) scale(1.08); }
+    50%  { transform: translate(-14vw, -4vh) scale(0.92); }
+    75%  { transform: translate(-4vw, -8vh) scale(1.04); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  @keyframes driftC {
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(-10vw, -8vh) scale(1.1); }
+    66%  { transform: translate(8vw, 6vh) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  @keyframes driftD {
+    0%   { transform: translate(0, 0) scale(1); }
+    20%  { transform: translate(15vw, -10vh) scale(1.12); }
+    40%  { transform: translate(10vw, 12vh) scale(0.88); }
+    60%  { transform: translate(-5vw, 8vh) scale(1.06); }
+    80%  { transform: translate(-10vw, -5vh) scale(0.95); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  @keyframes driftE {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(-8vw, 14vh) scale(1.15); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  @keyframes driftF {
+    0%   { transform: translate(0, 0) scale(1); }
+    30%  { transform: translate(6vw, -6vh) scale(1.05); }
+    70%  { transform: translate(-6vw, 8vh) scale(0.95); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
 </style>
 </head>
 <body>
+
+<!-- ─── ANIMATED MESH GRADIENT BG ─── -->
+<div class="mesh-bg">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
+  <div class="blob blob-5"></div>
+  <div class="blob blob-6"></div>
+</div>
 
 <!-- ─── PRELOADER ─── -->
 <div id="preloader">
@@ -645,7 +776,6 @@
 
 <!-- ─── HERO ─── -->
 <div class="hero">
-  <canvas id="hero-3d-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 2s ease-in-out;"></canvas>
   <div class="hero-content">
     <div class="hero-text">
       <p class="hero-eyebrow">Frontend Developer &amp; Content Creator</p>
@@ -1019,75 +1149,7 @@
     "max-glare": 0.1,
   });
 
-  // Three.js Interactive Particle Background
-  const canvas = document.getElementById('hero-3d-canvas');
-  if(canvas) {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    camera.position.z = 5;
-
-    // Create Particles
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 800; // number of particles
-    const posArray = new Float32Array(particlesCount * 3);
-
-    for(let i = 0; i < particlesCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 15;
-    }
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-    // Material with gold color
-    const material = new THREE.PointsMaterial({
-      size: 0.025,
-      color: 0xc9a84c,
-      transparent: true,
-      opacity: 0.6,
-      blending: THREE.AdditiveBlending
-    });
-
-    const particlesMesh = new THREE.Points(particlesGeometry, material);
-    scene.add(particlesMesh);
-
-    // Fade in canvas smoothly
-    setTimeout(() => { canvas.style.opacity = '1'; }, 1000);
-
-    // Mouse Interaction
-    let mouseX = 0;
-    let mouseY = 0;
-    document.addEventListener('mousemove', (event) => {
-      mouseX = (event.clientX / window.innerWidth) - 0.5;
-      mouseY = (event.clientY / window.innerHeight) - 0.5;
-    });
-
-    // Animate
-    const clock = new THREE.Clock();
-    const tick = () => {
-      const elapsedTime = clock.getElapsedTime();
-
-      // Auto rotation
-      particlesMesh.rotation.y = elapsedTime * 0.05;
-      particlesMesh.rotation.x = elapsedTime * 0.02;
-
-      // Follow mouse slightly
-      particlesMesh.rotation.x += mouseY * 0.08;
-      particlesMesh.rotation.y += mouseX * 0.08;
-
-      renderer.render(scene, camera);
-      window.requestAnimationFrame(tick);
-    }
-    tick();
-
-    // Handle Resize
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-  }
+  // Removed Three.js flame background to accommodate CSS mesh
 </script>
 </body>
 </html>
